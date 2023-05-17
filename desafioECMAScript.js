@@ -15,7 +15,12 @@ class ProductManager {
 
         if (!title || !description || !price || !thumbnail || !code || !stock) {
             return
-
+        }
+        
+        const codigoExistente = this.#products.find(product => product.code === code);
+        if (codigoExistente) {
+          console.error("El código de producto esta repetido");
+          return;
         }
 
         const producto = {
@@ -42,7 +47,7 @@ class ProductManager {
             const prod = existeProducto.title;
             console.log(`El producto existe, es el siguiente: ${prod}`)
         } else {
-            console.log("Not found")
+            console.error("Not found")
         }
 
     }
@@ -54,6 +59,8 @@ const producto = new ProductManager()
 const productos = producto.getProducts();
 
 producto.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
+producto.addProduct("producto prueba 2", "Este es un producto prueba 2", 201, "Sin imagen 2", "abc1234", 26);
+producto.addProduct("producto prueba 3", "Este es un producto prueba 3", 202, "Sin imagen 3", "abc1234", 28); //error de mismo codigo de producto
 
 console.log(productos)
 
