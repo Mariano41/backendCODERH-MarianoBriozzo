@@ -13,8 +13,13 @@ class ProductManager {
 
     addProduct(title, description, price, thumbnail, code, stock) {
 
+        if (!title || !description || !price || !thumbnail || !code || !stock) {
+            return
+
+        }
+
         const producto = {
-            id:this.id++,
+            id: this.id++,
             title,
             description,
             price,
@@ -26,30 +31,31 @@ class ProductManager {
 
         this.#products.push(producto)
 
-   } 
+    }
+
+    getProductById(id) {
+        const existeProducto = this.#products.find((elemento) => {
+            return elemento.id == id
+        })
+
+        if (existeProducto) {
+            const prod = existeProducto.title;
+            console.log(`El producto existe, es el siguiente: ${prod}`)
+        } else {
+            console.log("Not found")
+        }
+
+    }
 }
 
 
+const producto = new ProductManager()
 
+const productos = producto.getProducts();
 
+producto.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
 
-if (!title || !description || !price || !thumbnail || !code || !stock) {
-    this.title= title;
-    this.description= description;
-    this.price= price;
-    this.thumbnail= thumbnail;
-    this.code= code;
-    this.stock= stock;
-    this.id = this.id++; 
+console.log(productos)
 
-    return
-   
-}
-
-
-
-
-
-let producto1 = new ProductManager("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
-
-console.log(producto1)
+producto.getProductById(0) //Producto que existe
+producto.getProductById(2) //Producto que NO existe
